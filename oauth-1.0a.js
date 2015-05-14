@@ -24,6 +24,7 @@ function OAuth(opts) {
     this.signature_method    = opts.signature_method || 'HMAC-SHA1';
     this.nonce_length        = opts.nonce_length || 32;
     this.version             = opts.version || '1.0';
+    this.callback            = opts.callback;
     this.parameter_seperator = opts.parameter_seperator || ', ';
 
     if(typeof opts.last_ampersand === 'undefined') {
@@ -75,7 +76,8 @@ OAuth.prototype.authorize = function(request, token) {
         oauth_nonce: this.getNonce(),
         oauth_signature_method: this.signature_method,
         oauth_timestamp: this.getTimeStamp(),
-        oauth_version: this.version
+        oauth_version: this.version,
+        oauth_callback: this.callback
     };
 
     if(!token) {
